@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Cocktail } from '../shared/cocktail.model';
 import { CocktailsService } from '../shared/cocktails.service';
+import { urlValidator } from '../validate-url.directive';
 
 @Component({
   selector: 'app-form',
@@ -11,13 +12,14 @@ import { CocktailsService } from '../shared/cocktails.service';
 })
 export class FormComponent implements OnInit {
   cocktailForm!: FormGroup;
+  buttonClick = false;
 
   constructor(private cocktailService: CocktailsService, private router: Router) { }
 
   ngOnInit(): void {
     this.cocktailForm = new FormGroup({
       name: new FormControl('', Validators.required),
-      imageUrl: new FormControl('', [Validators.required]),
+      imageUrl: new FormControl('', [Validators.required, urlValidator]),
       type: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       ingredients: new FormArray([]),
@@ -26,6 +28,7 @@ export class FormComponent implements OnInit {
   }
 
   addIngredient() {
+    this.buttonClick = true
     const ingredients = <FormArray>this.cocktailForm.get('ingredients');
     const ingredientsGroup = new FormGroup({
       ingredientName: new FormControl('',Validators.required),
@@ -38,6 +41,11 @@ export class FormComponent implements OnInit {
   getIngredientControls() {
     const ingredients =  <FormArray>this.cocktailForm.get('ingredients');
     return ingredients.controls;
+  }
+
+  formHasError(fieldName: string, errorType: string) {
+    const field = this.cocktailForm.get(fieldName);
+    return Boolean(field && field.touched && field.errors?.[errorType]);
   }
 
   createCocktail() {
@@ -67,5 +75,8 @@ export class FormComponent implements OnInit {
   removeIngredient(indexOfIngredient: number) {
     const ingredients =  <FormArray>this.cocktailForm.get('ingredients');
     ingredients.removeAt(indexOfIngredient);
+    if (ingredients.length === 0) {
+      this.buttonClick = false;
+    }
   }
 }

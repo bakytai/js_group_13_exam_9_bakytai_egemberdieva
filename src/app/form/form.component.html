@@ -5,10 +5,20 @@
     <div class="form-group">
       <label for="name">Name: </label>
       <input type="text" formControlName="name" id="name" class="form-control">
+      <small
+        *ngIf="formHasError('name', 'required')"
+        class="form-text invalid-form-text">
+        Enter name
+      </small>
     </div>
     <div class="form-group">
       <label for="imageUrl">Image URL: </label>
       <input type="text" formControlName="imageUrl" id="imageUrl" class="form-control">
+      <small
+        *ngIf="formHasError('imageUrl', 'url')"
+        class="form-text invalid-form-text">
+        URL should start from: 'http://' or 'https://'
+      </small>
     </div>
     <div class="form-group d-flex">
       <label class="mr-3">Type: </label>
@@ -20,14 +30,29 @@
         <input class="form-check-input" type="radio" id="alcoholic" value="alcoholic" formControlName="type">
         <label class="form-check-label" for="alcoholic">Alcoholic</label>
       </div>
+      <small
+        *ngIf="formHasError('type', 'required')"
+        class="form-text invalid-form-text">
+        Choose type
+      </small>
     </div>
     <div class="form-group">
-      <label for="name">Description: </label>
+      <label for="description">Description: </label>
       <textarea type="text" formControlName="description" id="description" class="form-control"></textarea>
+      <small
+        *ngIf="formHasError('description', 'required')"
+        class="form-text invalid-form-text">
+        Enter description
+      </small>
     </div>
     <div class="form-group" formArrayName="ingredients">
       <label>Ingredients: </label>
       <button type="button" class="btn btn-outline-info" (click)="addIngredient()">Add</button>
+      <small
+        *ngIf="!buttonClick"
+        class="form-text invalid-form-text">
+        Add ingredient
+      </small>
 
       <div class="d-flex" *ngFor="let ingredientControl of getIngredientControls(); let i = index">
         <div [formGroupName]="i">
@@ -46,11 +71,16 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="name">Instruction: </label>
+      <label>Instruction: </label>
       <input type="text" formControlName="instructions" id="instructions" class="form-control">
+      <small
+        *ngIf="formHasError('instructions', 'required')"
+        class="form-text invalid-form-text">
+        Enter instructions
+      </small>
     </div>
     <div class="form-group">
-      <button [disabled]="cocktailForm.invalid" class="btn btn-success" (click)="createCocktail()">Save</button>
+      <button [disabled]="cocktailForm.invalid && buttonClick" class="btn btn-success" (click)="createCocktail()">Save</button>
       <button class="btn btn-secondary" (click)="resetForm()">Reset</button>
     </div>
   </form>

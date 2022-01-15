@@ -12,6 +12,7 @@ import { ModalComponent } from './modal/modal.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ValidateUrlDirective } from './validate-url.directive';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,7 @@ import { ValidateUrlDirective } from './validate-url.directive';
     ToolbarComponent,
     CocktailPartyComponent,
     ModalComponent,
-    ValidateUrlDirective,
+    ValidateUrlDirective
   ],
   imports: [
     BrowserModule,

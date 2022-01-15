@@ -21,7 +21,6 @@ export class CocktailPartyComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.cocktailsChangeSubscription = this.cocktailsService.cocktailsChange.subscribe((cocktails: Cocktail[]) => {
       this.cocktails = cocktails;
-      console.log(this.cocktails);
     });
 
     this.cocktailsFetchingSubscription = this.cocktailsService.cocktailsFetching.subscribe((isFetching:boolean) => {
