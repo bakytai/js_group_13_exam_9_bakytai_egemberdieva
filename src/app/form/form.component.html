@@ -57,12 +57,27 @@
       <div class="d-flex" *ngFor="let ingredientControl of getIngredientControls(); let i = index">
         <div [formGroupName]="i">
           <input type="text" formControlName="ingredientName" class="form-control" placeholder="Ingredient name">
+          <small
+            *ngIf="formHasError('ingredientName', 'required')"
+            class="form-text invalid-form-text">
+            Enter ingredient name
+          </small>
           <input type="number" formControlName="amount" class="form-control" placeholder="amount">
+          <small
+            *ngIf="formHasError('amount', 'required')"
+            class="form-text invalid-form-text">
+            Enter amount
+          </small>
           <select formControlName="dimension" class="form-control">
             <option value="ml">ml</option>
             <option value="grams">grams</option>
             <option value="unit">unit</option>
           </select>
+          <small
+            *ngIf="formHasError('dimension', 'required')"
+            class="form-text invalid-form-text">
+            Choose dimension
+          </small>
         </div>
         <div>
           <button type="button" class="btn  btn-outline-danger" (click)="removeIngredient(i)">
