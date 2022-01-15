@@ -1,0 +1,9 @@
+<div class="d-flex flex-wrap" >
+  <div class="card m-2" style="width: 18rem;" *ngFor="let cocktail of cocktails">
+    <img [src]="cocktail.imageUrl" class="card-img-top" alt="{{ cocktail.name }}">
+    <div class="card-body">
+      <h5 class="card-title"> <b>{{ cocktail.name }}</b></h5>
+      <p class="card-text">Type: {{ cocktail.type }}</p>
+    </div>
+  </div>
+</div>
