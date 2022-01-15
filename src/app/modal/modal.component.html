@@ -1,1 +1,11 @@
-<p>modal works!</p>
+<div class="modal show" style="width: 30rem" [ngStyle]="{display: isOpen ? 'block' : 'none'}">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ cocktailName }}</h5>
+      </div>
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop show" [ngStyle]="{display: isOpen ? 'block' : 'none'}"></div>

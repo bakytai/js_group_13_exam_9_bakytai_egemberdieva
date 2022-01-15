@@ -9,6 +9,8 @@ import { FormComponent } from './form/form.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { CocktailPartyComponent } from './cocktail-party/cocktail-party.component';
 import { ModalComponent } from './modal/modal.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ValidateUrlDirective } from './validate-url.directive';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { ModalComponent } from './modal/modal.component';
     FormComponent,
     ToolbarComponent,
     CocktailPartyComponent,
-    ModalComponent
+    ModalComponent,
+    ValidateUrlDirective,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],

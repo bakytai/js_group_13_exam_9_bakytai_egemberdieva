@@ -1,7 +1,7 @@
 <div class="col-3">
   <h3>Create new cocktail</h3>
 
-  <form>
+  <form [formGroup]="cocktailForm" >
     <div class="form-group">
       <label for="name">Name: </label>
       <input type="text" formControlName="name" id="name" class="form-control">
@@ -29,17 +29,20 @@
       <label>Ingredients: </label>
       <button type="button" class="btn btn-outline-info" (click)="addIngredient()">Add</button>
 
-      <div *ngFor="let stepControl of getStepControls(); let i = index">
+      <div class="d-flex" *ngFor="let ingredientControl of getIngredientControls(); let i = index">
         <div [formGroupName]="i">
-          <input type="text" formControlName="ingredientName" class="form-control">
-          <input type="number" formControlName="amount" class="form-control">
+          <input type="text" formControlName="ingredientName" class="form-control" placeholder="Ingredient name">
+          <input type="number" formControlName="amount" class="form-control" placeholder="amount">
           <select formControlName="dimension" class="form-control">
-            <option value="">ml</option>
-            <option value="movies">klg</option>
-            <option value="tv-series">liters</option>
+            <option value="ml">ml</option>
+            <option value="grams">grams</option>
+            <option value="unit">unit</option>
           </select>
         </div>
-        <button type="button">Delete ingredient</button>
+        <div>
+          <button type="button" class="btn  btn-outline-danger" (click)="removeIngredient(i)">
+            Delete ingredient</button>
+        </div>
       </div>
     </div>
     <div class="form-group">
@@ -47,7 +50,8 @@
       <input type="text" formControlName="instructions" id="instructions" class="form-control">
     </div>
     <div class="form-group">
-      <button class="btn btn-success">Save</button>
+      <button [disabled]="cocktailForm.invalid" class="btn btn-success" (click)="createCocktail()">Save</button>
+      <button class="btn btn-secondary" (click)="resetForm()">Reset</button>
     </div>
   </form>
 </div>

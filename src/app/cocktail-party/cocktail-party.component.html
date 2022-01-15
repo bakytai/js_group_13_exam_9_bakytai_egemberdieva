@@ -1,9 +1,31 @@
-<div class="d-flex flex-wrap" >
-  <div class="card m-2" style="width: 18rem;" *ngFor="let cocktail of cocktails">
-    <img [src]="cocktail.imageUrl" class="card-img-top" alt="{{ cocktail.name }}">
-    <div class="card-body">
-      <h5 class="card-title"> <b>{{ cocktail.name }}</b></h5>
-      <p class="card-text">Type: {{ cocktail.type }}</p>
+<div class="container">
+  <span *ngIf="isFetching" class="spinner-border spinner-border-sm" style="width: 20px"></span>
+
+  <div class="d-flex flex-wrap">
+    <div class="card m-2" style="width: 18rem;" *ngFor="let cocktail of cocktails" (click)="onClick(cocktail)">
+      <img [src]="cocktail.imageUrl" class="card-img-top" alt="{{ cocktail.name }}">
+      <div class="card-body">
+        <h5 class="card-title"><b>{{ cocktail.name }}</b></h5>
+        <p class="card-text">Type: {{ cocktail.type }}</p>
+      </div>
     </div>
   </div>
 </div>
+
+<app-modal *ngIf="cocktailDetails"  [isOpen]="modalOpen" [cocktailName]="cocktailDetails.name">
+  <div class="modal-body">
+    <img [src]="cocktailDetails.imageUrl" class="card-img-top" style="width: 5rem" alt="{{ cocktailDetails.name }}">
+    <p class="card-text">Type: {{ cocktailDetails.type }}</p>
+    <p class="card-text">Description {{ cocktailDetails.description }}</p>
+    <h4>Ingredients:</h4>
+    <div class="p-2" *ngFor="let ingredient of cocktailDetails.ingredients; let i = index">
+      <h5><b>Ингредиент {{ i + 1 }}</b></h5>
+      <p>{{ ingredient.ingredientName }} <b>{{ ingredient.amount }}</b><span>{{ ingredient.dimension }}</span></p>
+    </div>
+    <p>Instruction: {{ cocktailDetails.instructions }}</p>
+    <div class="modal-footer">
+      <button (click)="closeModal()" class="btn btn-danger">Cancel</button>
+    </div>
+  </div>
+</app-modal>
+
